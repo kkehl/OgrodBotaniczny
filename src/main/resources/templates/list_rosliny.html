@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8" />
+<title>Ogrod botaniczny</title>
+<link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="topnav">
+		<span>Zalogowano jako:</span>
+		<span sec:authentication="name">username</span>
+		<a id="home-page" href="/">Strona startowa</a>
+		<a href="/list/rosliny">Rośliny</a>
+		<a href="/list/sekcje">Sekcje ogrodu</a>
+		<a href="/list/pracownicy" sec:authorize="hasAnyRole('USER', 'ADMIN')">Pracownicy</a>
+		<div style="width: 100px;"></div>
+		<a id="logout" href="/logout" >Wyloguj</a>
+	</div>
+	<div class="content">
+		<h1>Rośliny</h1>
+	</div>
+	<div class="footer">
+		<div id="db_table">
+			<table class="center" border="1" cellpadding="10">
+				<thead>
+					<tr>
+						<th>Nr rośliny</th>
+						<th>Nazwa rośliny</th>
+						<th>Nazwa naukowa</th>
+						<th>Ilość</th>
+						<th>Nr sekcji</th>
+						<th sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Akcje</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="roslina : ${listRosliny}">
+						<td th:text="${roslina.nr_rosliny}">Nr rośliny</td>
+						<td th:text="${roslina.gatunek}">Nazwa rośliny</td>
+						<td th:text="${roslina.nazwa_naukowa}">Nazwa naukowa</td>
+						<td th:text="${roslina.ilosc}">Ilość</td>
+						<td th:text="${roslina.nr_sekcji}">nr_sekcji</td>
+						<td sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">
+							<a th:href="@{'/edit/roslina/' + ${roslina.nr_rosliny}}">Edytuj</a>
+							&nbsp;&nbsp;&nbsp; 
+							<a th:href="@{'/delete/roslina/' + ${roslina.nr_rosliny}}">Usuń</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<br /> <br />
+		<a href="/new/roslina" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Dodaj roślinę</a>
+	</div>
+</body>
+</html>

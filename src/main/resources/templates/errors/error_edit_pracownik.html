@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8" />
+<title>Ogrod botaniczny</title>
+<link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="topnav">
+		<span>Zalogowano jako:</span>
+		<span sec:authentication="name">username</span>
+		<a id="home-page" href="/">Strona startowa</a>
+		<a href="/list/rosliny">Rośliny</a>
+		<a href="/list/sekcje">Sekcje ogrodu</a>
+		<a href="/list/pracownicy" sec:authorize="hasAnyRole('USER', 'ADMIN')">Pracownicy</a>
+		<div style="width: 100px;"></div>
+		<a id="logout" href="/logout" >Wyloguj</a>
+  	</div>
+	<div class="content">
+		<h1 style=font-size:40px>Błąd</h1>
+	</div>
+	<div class="footer">
+		
+		<h1 style="margin-top: 20vh">Wprowadzono błędną wartość. Spróbuj ponownie.</h1> 
+		<br /><br /><br /><br />
+		<a href="/list/pracownicy">Powrót</a>
+	</div>
+</body>
+</html>

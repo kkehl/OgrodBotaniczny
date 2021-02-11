@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8" />
+<title>Sekcje ogrodu botanicznego</title>
+<link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="topnav">
+		<span>Zalogowano jako:</span>
+		<span sec:authentication="name">username</span>
+		<a id="home-page" href="/">Strona startowa</a>
+		<a href="/list/rosliny">Rośliny</a>
+		<a href="/list/sekcje">Sekcje ogrodu</a>
+		<a href="/list/pracownicy" sec:authorize="hasAnyRole('USER', 'ADMIN')">Pracownicy</a>
+		<div style="width: 100px;"></div>
+		<a id="logout" href="/logout" >Wyloguj</a>
+	</div>
+	<div class="content">
+		<h1>Sekcje ogrodu</h1>
+	</div>
+	<div class="footer">
+		<div id="db_table">	
+			<table class="center" border="1" cellpadding="10">
+				<thead>
+					<tr>
+						<th>Nr sekcji</th>
+						<th>Nazwa</th>
+						<th>Typ</th>
+						<th>Powierzchnia</th>
+						<th>Temperatura powietrza</th>
+						<th>Wilgotność powietrza</th>
+						<th>Opis</th>
+						<th sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Akcje</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="sekcjaOgrodu : ${listSekcje}">
+						<td th:text="${sekcjaOgrodu.nr_sekcji}">Nr sekcji</td>
+						<td th:text="${sekcjaOgrodu.nazwa}">Nazwa</td>
+						<td th:text="${sekcjaOgrodu.typ}">Typ</td>
+						<td th:text="${sekcjaOgrodu.powierzchnia}">Powierzchnia</td>
+						<td th:text="${sekcjaOgrodu.temperatura_powietrza}">Temperatura powietrza</td>
+						<td th:text="${sekcjaOgrodu.wilgotnosc_powietrza}">Wilgotność powietrza</td>
+						<td th:text="${sekcjaOgrodu.opis}">Opis</td>
+						<td sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">
+							<a th:href="@{'/edit/sekcja/' + ${sekcjaOgrodu.nr_sekcji}}">Edytuj</a>
+							&nbsp;&nbsp;&nbsp; 
+							<a th:href="@{'/delete/sekcja/' + ${sekcjaOgrodu.nr_sekcji}}">Usuń</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<br /> <br />
+		<a href="/new/sekcja" sec:authorize="hasAnyRole('EMPLOYEE','ADMIN')">Dodaj sekcję</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8" />
+<title>Edytowanie pracownika</title>
+<link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="topnav">
+        <span>Zalogowano jako:</span>
+        <span sec:authentication="name">username</span>
+        <a id="home-page" href="/">Strona startowa</a>
+        <a href="/list/rosliny">Rośliny</a>
+        <a href="/list/sekcje">Sekcje ogrodu</a>
+        <a href="/list/pracownicy" sec:authorize="hasAnyRole('USER', 'ADMIN')">Pracownicy</a>
+        <div style="width: 100px;"></div>
+        <a id="logout" href="/logout" >Wyloguj</a>
+	</div>
+	<div class="content">
+		<h1>Edytowanie pracownika</h1>
+	</div>
+    <div class="footer">
+        <form class="new_form" action="#" th:action="@{/update/pracownik}" th:object="${pracownik}"
+            method="post">
+ 
+            <table id="new-table" class="center" border="0" cellpadding="10">
+                <tr>
+                    <td>Nr pracownika:</td>
+                    <td><input id="primary_key" type="text" th:field="*{nr_pracownika}" readonly="readonly" /></td>
+                </tr>
+                <tr>
+                    <td>Imię:</td>
+                    <td><input type="text" th:field="*{imie}" /></td>
+                </tr>
+                <tr>
+                    <td>Nazwisko:</td>
+                    <td><input type="text" th:field="*{nazwisko}" /></td>
+                </tr>
+                <tr>
+                    <td>Data urodzenia:</td>
+                    <td><input type="date" min="1950-01-01" max="2100-12-31" th:field="*{data_urodzenia}" /></td>
+                </tr>
+                <tr>
+                    <td>Płeć:</td>
+                    <td>
+						<input type="radio" th:field="*{plec}" th:value="M">
+						<label th:for="${#ids.prev('plec')}">Mężczyzna</label>
+						<input type="radio" th:field="*{plec}" th:value="K">
+						<label th:for="${#ids.prev('plec')}">Kobieta</label>
+					</td>
+                </tr>
+                <tr>
+                    <td>Data zatrudnienia:</td>
+                    <td><input type="date" min="1950-01-01" max="2100-12-31" th:field="*{data_zatrudnienia}" /></td>
+                </tr>
+                <tr>
+                    <td>Nr konta:</td>
+                    <td><input type="text" th:field="*{nr_konta}" /></td>
+                </tr>
+                <tr>
+                    <td>PESEL:</td>
+                    <td><input type="text" th:field="*{pesel}" /></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" th:field="*{email}" /></td>
+                </tr>
+                <tr>
+                    <td>Nr telefonu:</td>
+                    <td><input type="text" th:field="*{nr_telefonu}" /></td>
+                </tr>
+                <tr>
+                    <td>Stanowisko:</td>
+                    <td><input type="text" th:field="*{stanowisko}" /></td>
+                </tr>
+                <tr>
+                    <td>Nr sekcji:</td>
+                    <td><input type="number" th:field="*{nr_sekcji}" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    	<button type="submit">Zapisz</button>
+                    	&nbsp;&nbsp;&nbsp;
+                    	<a href="/list/pracownicy">Anuluj</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>

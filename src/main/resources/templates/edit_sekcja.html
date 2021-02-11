@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8" />
+<title>Edytowanie sekcji</title>
+<link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="topnav">
+        <span>Zalogowano jako:</span>
+        <span sec:authentication="name">username</span>
+        <a id="home-page" href="/">Strona startowa</a>
+        <a href="/list/rosliny">Rośliny</a>
+        <a href="/list/sekcje">Sekcje ogrodu</a>
+        <a href="/list/pracownicy" sec:authorize="hasAnyRole('USER', 'ADMIN')">Pracownicy</a>
+        <div style="width: 100px;"></div>
+        <a id="logout" href="/logout" >Wyloguj</a>
+	</div>
+	<div class="content">
+		<h1>Edytowanie sekcji</h1>
+	</div>
+    <div class="footer">
+        <form class="new_form" action="#" th:action="@{/update/sekcja}" th:object="${sekcjaOgrodu}"
+            method="post">
+ 
+            <table id="new-table" class="center" border="0" cellpadding="10">
+                <tr>
+                    <td>Nr sekcji:</td>
+                    <td><input id="primary_key" type="text" th:field="*{nr_sekcji}" readonly="readonly" /></td>
+                </tr>
+                <tr>
+                    <td>Nazwa:</td>
+                    <td><input type="text" th:field="*{nazwa}" /></td>
+                </tr>
+                <tr>
+                    <td>Typ:</td>
+                    <td>
+						<input type="radio" th:field="*{typ}" th:value="na_powietrzu">
+						<label th:for="${#ids.prev('typ')}">Na powietrzu</label>
+						<input type="radio" th:field="*{typ}" th:value="szklarnia">
+						<label th:for="${#ids.prev('typ')}">Szklarnia</label>
+					</td>
+                </tr>
+                <tr>
+                    <td>Powierzchnia:</td>
+                    <td><input type="text" th:field="*{powierzchnia}" /></td>
+                </tr>
+                <tr>
+                    <td>Temperatura powietrza:</td>
+                    <td><input type="text" th:field="*{temperatura_powietrza}" /></td>
+                </tr>
+                <tr>
+                    <td>Wilgotność powietrza:</td>
+                    <td><input type="text" th:field="*{wilgotnosc_powietrza}" /></td>
+                </tr>
+                <tr>
+                    <td>Opis:</td>
+                    <td><input type="text" th:field="*{opis}" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    	<button type="submit">Zapisz</button>
+                    	&nbsp;&nbsp;&nbsp;	
+                    	<a href="/list/sekcje">Anuluj</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>

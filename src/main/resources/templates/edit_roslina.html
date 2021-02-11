@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8" />
+<title>Edytowanie rośliny</title>
+<link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="topnav">
+        <span>Zalogowano jako:</span>
+        <span sec:authentication="name">username</span>
+        <a id="home-page" href="/">Strona startowa</a>
+        <a href="/list/rosliny">Rośliny</a>
+        <a href="/list/sekcje">Sekcje ogrodu</a>
+        <a href="/list/pracownicy" sec:authorize="hasAnyRole('USER', 'ADMIN')">Pracownicy</a>
+        <div style="width: 100px;"></div>
+        <a id="logout" href="/logout" >Wyloguj</a>
+	</div>
+	<div class="content">
+		<h1>Edytowanie rośliny</h1>
+	</div>
+    <div class="footer">
+        <form class="new_form" action="#" th:action="@{/update/roslina}" th:object="${roslina}"
+            method="post">
+ 
+            <table id="new-table" class="center" border="0" cellpadding="10">
+                <tr>
+                    <td>Nr rośliny:</td>
+                    <td><input id="primary_key" type="text" th:field="*{nr_rosliny}" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td>Nazwa rośliny:</td>
+                    <td><input type="text" th:field="*{gatunek}" /></td>
+                </tr>
+                <tr>
+                    <td>Nazwa naukowa:</td>
+                    <td><input type="text" th:field="*{nazwa_naukowa}" /></td>
+                </tr>
+                <tr>
+                    <td>Ilość:</td>
+                    <td><input type="number" th:field="*{ilosc}" /></td>
+                </tr>
+                <tr>
+                    <td>Nr sekcji:</td>
+                    <td><input type="number" th:field="*{nr_sekcji}" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    	<button type="submit">Zapisz</button>
+                    	&nbsp;&nbsp;&nbsp;	 
+                    	<a href="/list/rosliny">Anuluj</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>

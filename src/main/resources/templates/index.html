@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8" />
+<title>Ogrod botaniczny</title>
+<link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="topnav">
+		<span>Zalogowano jako:</span>
+		<span sec:authentication="name">username</span>
+		<a id="home-page" href="/">Strona startowa</a>
+		<a href="/list/rosliny">Rośliny</a>
+		<a href="/list/sekcje">Sekcje ogrodu</a>
+		<a href="/list/pracownicy" sec:authorize="hasAnyRole('USER', 'ADMIN')">Pracownicy</a>
+		<div style="width: 100px;"></div>
+		<a id="logout" href="/logout" >Wyloguj</a>
+  	</div>
+	<div class="content home_title">
+		<h1 style=font-size:40px>Baza danych ogrodu botanicznego</h1>
+	</div>
+	<div class="footer home_content">
+		
+		<h1 style="margin-top: 10vh;">Wybierz tabelę:</h1>
+		<br /> <br /> <br /> <br /> <br />
+		<div class="button">
+			<a href="/list/rosliny" style="margin-left: 70px;">Rosliny</a>
+			<a href="/list/sekcje">Sekcje ogrodu</a>
+			<a href="/list/pracownicy" sec:authorize="hasAnyRole('USER', 'ADMIN')">Pracownicy</a>
+		</div>
+	</div>
+</body>
+</html>
